@@ -1,0 +1,172 @@
+<po-loading-overlay *ngIf="isExportRunning"></po-loading-overlay>
+<po-page-default p-title="Painel de Controle">
+  <po-accordion>
+    <po-accordion-item p-label="Disaster Recovery - Cadastros">
+      <po-divider p-label="Recovery - Todos os papéis"></po-divider>
+      <form [formGroup]="formDisasterRecovery">
+        <div class="po-row">
+          <po-datepicker class="po-sm-2 po-mr-2" formControlName="data"  p-format="dd/mm/yyyy" p-label="Data :"> </po-datepicker>
+          <po-button #disasterRecoveryButton
+                     class = "po-mt-4"
+                     p-icon="po-icon-change"
+                     p-label="Reverter BPO"
+                     p-type="primary"
+                     (p-click)="this.modalDisaster.open()"
+                     >
+          </po-button>
+        </div>
+      </form>
+
+      <po-divider p-label="Recovery - Unitário"></po-divider>
+      <form [formGroup]="formDisasterRecoveryUnitario">
+        <div class="po-row">
+          <po-input class="po-sm-2" formControlName="papel"  p-label="Código SNA :"> </po-input>
+          <po-datepicker class="po-sm-2 po-mr-2" formControlName="data"  p-format="dd/mm/yyyy" p-label="Data :"> </po-datepicker>
+          <!-- <po-input class="po-sm-2 po-mr-4"  p-label="Hora :" p-mask = '99:99' p-pattern = "^(2[0-3]|[01][0-9]):?([0-5][0-9])$" > </po-input> -->
+          <!-- <form [formGroup]="formDisasterRecovery"></form>
+              <div class="po-row">
+                  formControlName="dateRecovery"
+                  formControlName="timeRecovery"
+              </div>
+          </form>  -->
+          <po-button #disasterRecoveryButton
+                     class = "po-mt-4"
+                     p-icon="po-icon-change"
+                     p-label="Reverter BPO"
+                     p-type="primary"
+                     (p-click)="disasterRecoveryUnitarioEditModal()"
+                     >
+          </po-button>
+        </div>
+      </form>
+
+
+    </po-accordion-item>
+  </po-accordion>
+  <po-accordion>
+    <po-accordion-item p-label="Market Data Portal">
+      Os botões dessa seção são responsáveis pelo carregamento manual de dados de <b>todos os papéis assinados</b> na Luz Sistemas, atualização da base de dados do BPO e impacto no Market Data Portal.
+      <div class="po-row">
+        <po-button
+        class = "po-mb-3 po-mt-3 po-mr-4"
+        p-icon="po-icon-download"
+        p-label="Atualizar Cadastros"
+        (p-click)="callrelatorioConfirmation('Cadastro')"
+        >
+        </po-button>
+        <po-button
+        class = "po-mb-3 po-mt-3 po-mr-4"
+        p-icon="po-icon-download"
+        p-label="Atualizar Preços Intraday"
+        (p-click)="callrelatorioConfirmation('Preços Intraday')"
+        >
+        </po-button>
+        <po-button
+        class = "po-mb-3 po-mt-3"
+        p-icon="po-icon-download"
+        p-label="Atualizar PU's Evento"
+        (p-click)="callrelatorioConfirmation('PU Evento')"
+        >
+        </po-button>
+
+      </div>
+    </po-accordion-item>
+  </po-accordion>
+  <po-accordion>
+    <po-accordion-item p-label="Exportar Dados">
+      Nessa seção voce pode exportar arquivos csv com informações cadastrais presentes na base de dados do BPO para todos os papéis assinados.
+      <div class="po-row">
+        <po-button
+        class = "po-mb-3 po-mt-3 po-mr-4"
+        p-icon="po-icon-upload"
+        p-label="Exportar Cadastros"
+        (p-click)="exportCadastro()"
+        >
+        </po-button>
+        <po-button
+        class = "po-mb-3 po-mt-3"
+        p-icon="po-icon-upload"
+        p-label="Exportar Fluxos"
+        (p-click)="exportFluxo()"
+        >
+        </po-button>
+      </div>
+    </po-accordion-item>
+  </po-accordion>
+
+  <po-accordion>
+    <po-accordion-item p-label="Atualizar cadastros em lote (CSV)">
+      Nessa seção você pode escolher os cadastros que deseja atualizar através da importação de um arquivo CSV.
+      <div class="po-row">
+        <po-button class="po-mb-3 po-mt-3 po-mr-4"
+                   p-icon="po-icon-user-add"
+                   p-label="Atualizar cadastros"
+                   (p-click)="openModal()">
+        </po-button>
+      </div>
+    </po-accordion-item>
+  </po-accordion>
+
+  <po-modal #loteMod
+            p-title="Atualizar cadastros"
+            [p-primary-action]="return">
+    <div class="po-mb-2">
+      <po-button p-icon="po-icon-upload"
+                 p-label="Baixar template"
+                 (p-click)="clickTemplate()">
+      </po-button>
+    </div>
+    <div class="po-mb-2">
+      <po-upload #UploadCSVComp
+                 name="upload"
+                 p-form-field="file"
+                 [p-literals]="customLiterals"
+                 [p-url]="sign_url_lote"
+                 [p-restrictions]="restrictions"
+                 (p-success)="uploadSuccess($event)"
+                 (p-upload)="triggerLoadingOv()"
+                 (p-error)="notifyError()">
+      </po-upload>
+    </div>
+    <po-loading-overlay *ngIf="loadingCadastroLote"></po-loading-overlay>
+  </po-modal>
+
+</po-page-default>
+
+<!-- <po-popover 
+p-trigger="hover"
+p-title= "Atenção!" 
+[p-target]="disasterRecoveryRef">
+Essa funcionalidade reverterá o estado de todos os dados do sistema BPO-Luz para a data e hora 
+</po-popover> -->
+
+<po-modal #modalDisaster
+p-title="Atenção"
+[p-primary-action]="confirmRecovery"
+[p-secondary-action]="cancelRecovery"
+>
+
+Esta funcionalidade reverterá o estado de <b>todos os cadastros</b> do sistema BPO-Luz para a data e hora selecionados.
+Você tem <b>certeza</b> que deseja isso?
+
+</po-modal>
+
+<po-modal #modalDisasterUnitario
+p-title="Atenção"
+[p-primary-action]="confirmRecoveryUnitario"
+[p-secondary-action]="cancelRecoveryUnitario"
+>
+
+Esta funcionalidade reverterá o estado do <b>cadastro</b> do papel <b>{{papelRecovery}}</b> no sistema BPO-Luz para a data e hora selecionados.
+Você tem <b>certeza</b> que deseja isso?
+
+</po-modal>
+
+
+<po-modal #relatorioConfirmation
+p-title="Confirmação"
+[p-primary-action]="confirmRelatorio"
+[p-secondary-action]="cancelRelatorio"
+>
+Deseja realmente impactar <b>todos</b> os papeis com a flag <b>{{tipoFlag}}</b> habilitada?
+</po-modal>

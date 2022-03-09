@@ -1,0 +1,17 @@
+<po-page-dynamic-search 
+p-title="Busca - Status do Ativo"
+[p-actions]="actions"
+[p-filters]="filters"
+[p-literals]="literals"
+(p-change-disclaimers)="onChangeDisclaimers($event)"
+(p-quick-search)="onQuickSearch($event)"
+(p-advanced-search)="onAdvancedSearch($event)"
+>
+
+    <app-detalhe-papel #detalheComp
+    [hasSearch]='hasSearch'
+    [role]='role'
+    ></app-detalhe-papel>
+
+    <po-loading-overlay *ngIf="isUnitRunning"></po-loading-overlay>
+</po-page-dynamic-search>

@@ -1,0 +1,34 @@
+# Node.js with Angular
+# Build a Node.js project that uses Angular.
+# Add steps that analyze code, save build artifacts, deploy, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/javascript
+
+name: $(Build.DefinitionName)_$(date:yyyyMMdd)$(rev:.r)
+
+pool:
+  name: DotNetV2
+
+steps:
+- script: echo $(Build.BuildNumber)
+- task: CopyFiles@2
+  displayName: 'Copy Files to: $(build.artifactstagingdirectory)'
+  inputs:
+    TargetFolder: '$(build.artifactstagingdirectory)'
+
+- task: Npm@1
+  displayName: 'npm install'
+  inputs:
+    workingDir: '$(build.artifactstagingdirectory)'
+    verbose: false
+
+- script: 'npm run build'
+  workingDirectory: '$(build.artifactstagingdirectory)'
+  displayName: 'Command Line Script - NPM Build'
+
+- task: PublishBuildArtifacts@1
+  displayName: 'Publish Artifact'
+  inputs:
+    PathtoPublish: '$(build.artifactstagingdirectory)/dist/my-po-project'
+    ArtifactName: '$(Build.BuildNumber)'
+    publishLocation: FilePath
+    TargetPath: '\\dsap394ufs\VSTS\DROPS\$(Build.DefinitionName)\'

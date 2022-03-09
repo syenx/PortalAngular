@@ -1,0 +1,13 @@
+<po-page-default *ngIf="loadingRelatorio">
+    <po-loading-overlay></po-loading-overlay>
+</po-page-default>
+<po-page-dynamic-table #precosDynTable *ngIf="!loadingRelatorio"
+    p-title="Preços recebidos no dia - Eventos do dia"
+    [p-fields]="fields"
+    [p-page-custom-actions]="pageCustomActions"
+    [p-service-api]="urlTabela">
+</po-page-dynamic-table>
+   
+
+  
+  

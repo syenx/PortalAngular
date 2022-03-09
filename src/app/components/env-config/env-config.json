@@ -1,0 +1,31 @@
+{
+    "localhost": {
+        "ambiente": "TESTE",
+        "apiUrl": "https://infohub.dev.eks-edm.container.btgpactual.net",
+        "clientId": "62908faa-3e3b-49c5-afdd-4840737bba68",
+        "authority": "https://login.microsoftonline.com/16e7cf3f-6af4-4e76-941e-aecafb9704e9",
+        "redirectUri": "http://localhost:4200/home"
+    },
+    "edm-bpo-dev.btgpactual.com": {
+        "ambiente": "DEV",
+        "apiUrl": "https://infohub.dev.eks-edm.container.btgpactual.net",
+        "clientId": "62908faa-3e3b-49c5-afdd-4840737bba68",
+        "authority": "https://login.microsoftonline.com/16e7cf3f-6af4-4e76-941e-aecafb9704e9",
+        "redirectUri": "https://edm-bpo-dev.btgpactual.com/home"
+    },
+    "edm-bpo-uat.btgpactual.com": {
+        "ambiente": "UAT",
+        "apiUrl": "https://infohub.uat.eks-edm.container.btgpactual.net",
+        "clientId": "63049bc2-3e41-49c3-b25c-4e320058f0ba",
+        "authority": "https://login.microsoftonline.com/16e7cf3f-6af4-4e76-941e-aecafb9704e9",
+        "redirectUri": "https://edm-bpo-uat.btgpactual.com/home"
+    },
+    "edm-bpo-prod.btgpactual.com": {
+        "ambiente": "PROD",
+        "apiUrl": "https://infohub.prod.eks-edm.container.btgpactual.net",
+        "clientId": "34b3828d-b4e2-470b-b6f3-59801cf7a177",
+        "authority": "https://login.microsoftonline.com/16e7cf3f-6af4-4e76-941e-aecafb9704e9",
+        "redirectUri": "https://edm-bpo-prod.btgpactual.com/home"
+    }
+  }
+  

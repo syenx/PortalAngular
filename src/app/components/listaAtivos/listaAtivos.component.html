@@ -1,0 +1,48 @@
+<po-page-dynamic-search
+  p-title="Lista de Ativos Assinados"
+  [p-actions]="actions"
+  [p-filters]="filters"
+  [p-literals]="literals"
+  (p-advanced-search)="advancedSearch($event)"
+  (p-quick-search)="quickSearch($event)"
+  (p-change-disclaimers)="changeDisclaimers($event)">
+
+  <po-table #table
+    p-selectable
+    p-sort="true"
+    [p-actions]="tableActions"
+    [p-columns]="columns"
+    [p-items]="rows"
+    [p-loading]="loading"
+    [p-show-more-disabled]="!hasNext"
+    (p-show-more)="showMore($event)"
+    (p-sort-by)="sortBy($event)">
+  </po-table>
+
+</po-page-dynamic-search>
+
+<po-modal #loteMod 
+p-title="Cadastro de Ativos"
+[p-primary-action]="return">
+    <div class="po-mb-2">
+      <po-button
+      p-icon= "po-icon-upload" 
+      p-label="Baixar template"
+      (p-click)="clickTemplate()"> 
+      </po-button>
+    </div>
+    <div class="po-mb-2">
+      <po-upload #UploadCSVComp
+      name="upload"
+      p-form-field = "file"
+      [p-literals] = "customLiterals"
+      [p-url]="sign_url_lote"
+      [p-restrictions]="restrictions"
+      (p-success) = "uploadSuccess($event)"
+      (p-upload) = "triggerLoadingOv()"
+      (p-error)="notifyError()"
+      >
+      </po-upload>
+    </div>
+    <po-loading-overlay *ngIf="loadingAssLote"></po-loading-overlay>
+</po-modal>

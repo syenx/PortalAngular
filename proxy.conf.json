@@ -1,0 +1,11 @@
+{
+    "/api/*" : {
+        "target": "http://infohub.dev.edm.container.btgpactual.net",
+        "secure" : false,
+        "logLevel" : "debug",
+        "pathRewrite": {
+            "^/api": ""
+          },
+        "changeOrigin": true
+    }
+}

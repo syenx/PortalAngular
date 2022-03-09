@@ -1,0 +1,122 @@
+/* You can add global styles to this file, and also import other style files */
+:root {
+    --color-menu-background-color-menu: #001E62;
+    --color-menu-background-color-responsive: #001E62;
+    --color-menu-color-menu-responsive: white;
+    --color-menu-color-menu-item-text: white;
+    --color-menu-border-color-menu-item-selected: #FFC845;
+    --color-toolbar-color-title: white;
+    --color-toolbar-background-color-toolbar: #001E62;
+    --color-menu-color-menu-collapse-icon: white;
+    
+    /*
+    --color-button-border: #001E62;
+    --color-button-color: #001E62;
+    --color-button-background-color-primary: #FFC845;
+    --color-button-border-primary: #FFC845;
+    
+    --color-primary: #001E62;
+    --color-secudary: #FFC845!important;
+    --color-secondary-dark-20: #C6922D;
+    --color-secondary-dark-40: #91640F;
+    --color-secondary-dark-60-alpha-70: rgba(145,100,15,0.7);
+    --color-secondary-dark-60: #91640F;*/
+
+    --color-primary-light-95: #e6edff;
+    --color-primary-light-80: #99b8ff;
+    --color-primary-alpha-50: rgba(0,30,98,0.5);
+    --color-primary: #001E62;
+    --color-primary-dark-20: #001f66;
+    --color-primary-dark-40: #003dcc;
+    --color-secondary: #3C0582;
+    --color-secondary-dark-20: #2d0462;
+    --color-secondary-dark-40: #22034a;
+    --color-secondary-dark-60-alpha-70: rgba(45,18,84,0.7);
+    --color-secondary-dark-60: #2d1254;
+    --color-tertiary-light-90: #fff0cc;
+    --color-tertiary: #FFC845;
+    --color-tertiary-dark-5: #ffc233;
+    --color-tertiary-dark-40: #C6922D;
+    --color-tertiary-dark-60: #91640F;
+    --color-white: #fff;
+    --color-white-alpha-30: hsla(0,0%,100%,0.3);
+    --color-neutral-light-98: #fbfbfb;
+    --color-neutral-light-90: #eceeee;
+    --color-neutral-light-80: #dadedf;
+    --color-neutral-light-60: #b6bdbf;
+    --color-neutral-light-40: #9da7a9;
+    --color-neutral-alpha-45: rgba(74,92,96,0.45);
+    --color-neutral: #4a5160;
+    --color-neutral-dark-40: #2c3739;
+    --color-neutral-dark-60: #1d2426;
+    --color-black-alpha-10: rgba(0,0,0,0.1);
+    --color-black-alpha-15: rgba(0,0,0,0.15);
+    --color-black-alpha-30: rgba(0,0,0,0.3);
+    --color-black: #000;
+    --color-success: #00965E;
+    --color-warning: #FFC845    ;
+    --color-danger-light-40: #e48193;
+    --color-danger: #D22D4B;
+    --color-danger-dark-5: #bd2844;
+    --color-danger-dark-20: #7e1b2d;
+    --color-danger-dark-40: #691626;
+    --color-transparent: rgba(0,0,0,0);
+    --color-01: #0c9abe;
+    --color-02: #2c85c8;
+    --color-03: #2c43c8;
+    --color-04: #5843c8;
+    --color-05: #ab43c8;
+    --color-06: #ab4391;
+    --color-07: #c64840;
+    --color-08: #ea9b3e;
+    --color-09: #abc249;
+    --color-10: #56b96b;
+    --color-11: #00b28e;
+    --color-12: #06a6a5;
+    --font-family-theme: Ubuntu;
+    --font-family-theme-bold: Ubuntu-Bold;
+    --font-family-theme-extra-light: Ubuntu-Light;
+}
+    @font-face {
+        font-family: 'Ubuntu';
+        src: url('fonts/Ubuntu/Ubuntu-Regular.ttf');
+        font-weight: normal;
+        font-style: normal;
+      }
+      
+      @font-face {
+        font-family: 'Ubuntu-Light';
+        src: url('fonts/Ubuntu/Ubuntu-Light.ttf');
+        font-weight: 300;
+        font-style: normal;
+        font-stretch: condensed;
+      }
+      
+      @font-face {
+        font-family: 'Ubuntu-Bold';
+        src: url('fonts/Ubuntu/Ubuntu-Bold.ttf');
+        font-weight: bold;
+        font-style: normal;
+      }    
+
+      @font-face {
+        font-family: 'Arial';
+        src: url('fonts/Arial/arial.ttf');
+        font-weight: normal;
+        font-style: normal;
+      }
+      
+      @font-face {
+        font-family: 'Arial-Light';
+        src: url('fonts/Arial/ARIALN.ttf');
+        font-weight: 300;
+        font-style: normal;
+        font-stretch: condensed;
+      }
+      
+      @font-face {
+        font-family: 'Arial-Bold';
+        src: url('fonts/Arial/arialbd.ttf');
+        font-weight: bold;
+        font-style: normal;
+      }   

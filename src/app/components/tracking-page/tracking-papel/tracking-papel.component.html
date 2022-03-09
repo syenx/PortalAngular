@@ -1,0 +1,27 @@
+<po-page-dynamic-search
+  [p-title]="title"
+  [p-actions]="actions"
+  [p-filters]="filters"
+  [p-literals]="literals"
+  (p-advanced-search)="advancedSearch($event)"
+  (p-quick-search)="quickSearch($event)"
+  (p-change-disclaimers)="changeDisclaimers($event)">
+
+  <po-table #table
+    p-selectable="false"
+    p-sort="false"
+    [p-actions]="tableActions"
+    [p-columns]="columns"
+    [p-items]="rows"
+    [p-loading]="loading"
+    [p-show-more-disabled]="!hasNext"
+    (p-show-more)="showMore($event)">
+  </po-table>
+
+</po-page-dynamic-search>
+
+<po-modal #modalErro
+p-title="Mensagem de erro"
+>
+{{erroModal}}
+</po-modal>

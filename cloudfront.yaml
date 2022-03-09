@@ -1,0 +1,108 @@
+AWSTemplateFormatVersion: 2010-09-09
+Resources:
+
+  AppBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      AccessControl: PublicRead
+      WebsiteConfiguration:
+        IndexDocument: index.html
+
+  AppAccessIdentity:
+    Type: AWS::CloudFront::CloudFrontOriginAccessIdentity
+    Properties:
+      CloudFrontOriginAccessIdentityConfig:
+        Comment: !Ref AppBucket 
+
+  WebAppBucketPolicy: 
+    Type: AWS::S3::BucketPolicy
+    DependsOn: AppAccessIdentity
+    Properties: 
+      Bucket: !Ref AppBucket
+      PolicyDocument: 
+        Statement: 
+          - 
+            Action: 
+              - "s3:GetObject"
+            Effect: "Allow"
+            Resource: !Join 
+              - ''
+              - - 'arn:aws:s3:::'
+                - !Ref AppBucket
+                - /*
+            Principal: 
+              AWS: !Sub arn:aws:iam::cloudfront:user/CloudFront Origin Access Identity ${AppAccessIdentity}
+  
+  WebAppDistribution:
+    Type: 'AWS::CloudFront::Distribution'
+    DependsOn: AppAccessIdentity
+    Properties:
+      DistributionConfig:
+        Origins:
+          - DomainName: !Sub ${AppBucket}.s3.amazonaws.com
+            Id: WebAppS3Origin
+            S3OriginConfig:
+              OriginAccessIdentity: !Sub origin-access-identity/cloudfront/${AppAccessIdentity}
+        Enabled: 'true'
+        Comment:  CloudFront distribution for Angular App
+        DefaultRootObject: index.html
+        Aliases:
+          - !Sub ${AppDomainName}
+        ViewerCertificate:
+          AcmCertificateArn: !Sub ${ACMCertificate}
+          SslSupportMethod: sni-only
+          MinimumProtocolVersion: TLSv1.2_2019
+        HttpVersion: http2
+        CacheBehaviors:
+          - PathPattern: 'index.html'
+            TargetOriginId: WebAppS3Origin
+            ViewerProtocolPolicy: redirect-to-https
+            DefaultTTL: 0
+            MaxTTL: 0
+            MinTTL: 0
+            ForwardedValues:
+              QueryString: 'false'
+              Cookies:
+                Forward: none
+        DefaultCacheBehavior:
+          AllowedMethods:
+            - GET
+            - HEAD
+          TargetOriginId: WebAppS3Origin
+          ForwardedValues:
+            QueryString: 'false'
+            Cookies:
+              Forward: none
+          ViewerProtocolPolicy: redirect-to-https
+        PriceClass: PriceClass_All
+        CustomErrorResponses:
+          - ErrorCode: '404'
+            ResponseCode: '200'
+            ResponsePagePath: "/index.html"
+            ErrorCachingMinTTL: '30'
+          - ErrorCode: '403'
+            ResponseCode: '200'
+            ResponsePagePath: "/index.html"
+            ErrorCachingMinTTL: '30'
+
+Metadata:
+  AWS::CloudFormation::Interface:
+    ParameterGroups:
+    - Label:
+        default: AWS S3 Host with CloudFront
+      Parameters:
+        - AppDomainName
+        - ACMCertificate
+
+Parameters:
+  AppDomainName:
+    AllowedPattern: ^(?!:\/\/)([a-zA-Z0-9-_]+\.)*[a-zA-Z0-9][a-zA-Z0-9-_]+\.[a-zA-Z]{2,11}?$
+    Default: XXX.btgpactual.com
+    Type: String
+    ConstraintDescription: The application domain.
+    Description: Any valid domain.
+  ACMCertificate:
+    Default : arn:aws:acm:us-east-1:XXX
+    Type: String
+    ConstraintDescription: The SSL Certificate ARN ID.
+    Description: Certificate associated to the XXX.btgpactual.com domain.

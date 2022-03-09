@@ -1,0 +1,3 @@
+﻿papel,impactaCadastro,impactaPreco,impactaEvento,impactaHistorico
+critestcsv,FALSE,FALSE,FALSE,FALSE
+critestcsv2,TRUE,TRUE,TRUE,TRUE

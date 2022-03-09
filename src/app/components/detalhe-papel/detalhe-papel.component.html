@@ -1,0 +1,69 @@
+<div class="sample-container" *ngIf="hasSearch" >
+    <po-accordion [class.is-hidden]="!hasDet">
+        <po-accordion-item p-label="Detalhes">
+            <app-resumo-assinatura #detailAccordion (loadLogEvent) = "loadlogEventResp($event)" (handleErrorEvent) = "handleError($event)" [role]="role"></app-resumo-assinatura>
+        </po-accordion-item>
+        
+    </po-accordion>
+    <po-accordion #cadastroAccordion *ngIf="hasCad" >
+        <po-accordion-item p-label="Cadastro">
+            <po-dynamic-view 
+            [p-fields]="cadastrofields"
+            [p-value]="cadastro">
+            </po-dynamic-view>
+            
+        </po-accordion-item>
+    </po-accordion>
+    <po-accordion #fluxoAccordion *ngIf="hasFluxo">
+        <po-accordion-item p-label="Fluxo do papel">
+            <po-table #fluxotable
+            p-height="400"
+            [p-columns]="fluxotableColumns"
+            [p-items]="fluxoData"
+            [p-loading]="loadingFluxo"
+            [p-show-more-disabled]="!hasNextFluxo"
+            (p-show-more)="showMoreFluxo($event)">          
+            </po-table>
+            
+        </po-accordion-item>
+    </po-accordion>
+    <po-accordion #precoAccordion *ngIf="hasPreco">
+        <po-accordion-item p-label="Preço - Última Atualização : {{lastAtt.date}} {{lastAtt.time}}">
+            <form [formGroup]="formPrecoFilter">
+                <div class="po-row">
+                    <po-datepicker class="po-sm-2" formControlName="dateStart" p-format="dd/mm/yyyy" p-label="Data Início :"> </po-datepicker>
+                    <po-input class="po-sm-2" formControlName="timeStartSTR" p-label="Hora Início :" p-mask = '99:99' p-pattern = "^(2[0-3]|[01][0-9]):?([0-5][0-9])$" > </po-input>
+                    <po-datepicker class="po-sm-2" formControlName="dateEnd" p-format="dd/mm/yyyy" p-label="Data Fim :"> </po-datepicker>
+                    <po-input class="po-sm-2" formControlName="timeEndSTR" p-label="Hora Fim :" p-mask = '99:99' p-pattern = "^(2[0-3]|[01][0-9]):?([0-5][0-9])$"> </po-input>
+                    <po-button class="po-sm-2 po-mt-4" p-type="primary" p-icon="po-icon-filter" p-label="Filtrar" (p-click)="precoDateFilter()"> </po-button>
+                    <po-button class="po-sm-2 po-mt-4"  p-icon="po-icon-upload" p-label="Exportar CSV" (p-click)="precoFilteredExport()"> </po-button>
+                </div>
+            </form>            
+            <po-divider></po-divider>
+            <po-disclaimer-group *ngIf="hasFilter" p-title="Filtros Aplicados:" [p-disclaimers]="filtersDisc"> </po-disclaimer-group>
+            <po-divider *ngIf="hasFilter" ></po-divider>
+            <po-table #precotable
+            p-height="250"
+            [p-columns]="precotableColumns"
+            [p-items]="precoData"
+            [p-loading]="loadingPreco"
+            [p-show-more-disabled]="!hasNextPreco"
+            (p-show-more)="showMorePreco($event)">            
+            </po-table>            
+        </po-accordion-item>
+    </po-accordion>
+    <po-accordion #logAccordion *ngIf="hasLog">
+        <po-accordion-item p-label="Histórico de Atividades">
+            <po-table #logtable
+            [p-actions]="logtableActions"
+            [p-columns]="logtableColumns"
+            [p-items]="logsData"
+            [p-loading]="loadingLog"
+            [p-show-more-disabled]="false">
+            </po-table>
+            
+        </po-accordion-item>
+    </po-accordion>
+    <po-loading-overlay *ngIf="!(hasDet || hasCad || hasLog || hasPreco || hasFluxo)"></po-loading-overlay>
+</div>
+

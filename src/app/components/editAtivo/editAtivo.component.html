@@ -1,0 +1,13 @@
+<po-page-edit
+(p-save)="save()"
+(p-cancel)="cancel()"
+p-title="Novo ativo"
+[p-disable-submit]="formCustomer?.form.invalid">
+
+<po-dynamic-form #formCustomer
+[p-fields]="fields"
+[p-value]="row">
+</po-dynamic-form>
+
+
+</po-page-edit>

@@ -1,0 +1,27 @@
+<po-page-default p-title="Visão geral do sistema">
+  <po-loading-overlay *ngIf="isChartLoading"></po-loading-overlay>
+  <po-chart
+  p-title="Cadastros - {{titleCharts}}"
+  class="po-xl-4 po-lg-4 po-md-4 po-sm-4"
+  [p-type]="chartsType"
+  [p-series]="cadastroSeries"
+  >
+  </po-chart>
+
+  <po-chart
+  p-title="Preços Intraday - {{titleCharts}}"
+  class="po-xl-4 po-lg-4 po-md-4 po-sm-4"
+  [p-type]="chartsType"
+  [p-series]="precoSeries"
+  >
+  </po-chart>
+
+  <po-chart
+  p-title="PU Eventos - {{titleCharts}}"
+  class="po-xl-4 po-lg-4 po-md-4 po-sm-4"
+  [p-type]="chartsType"
+  [p-series]="eventoSeries"
+  >
+  </po-chart>
+  
+</po-page-default>

@@ -1,0 +1,9 @@
+<po-page-default
+p-title="{{title}}"
+[p-actions]="actions"> 
+    <app-detalhe-papel #detalheComp
+    [hasSearch]='true'
+    [role]='role'
+    ></app-detalhe-papel>
+    <po-loading-overlay *ngIf="isUnitRunning"></po-loading-overlay>
+</po-page-default>
